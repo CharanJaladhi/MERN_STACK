@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo List</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 120px;
+        }
+
+        .content-box {
+            padding: 60px;
+            background-color: #fae3d9;
+            border: 2px solid #ffaaa5;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .action-button {
+            margin: 12px 0;
+            padding: 12px;
+            border: 1px solid #ff8b94;
+            background-color: #ffaaa5;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+            font-size: 16px;
+            color: white;
+        }
+
+        h2 {
+            font-family: 'Georgia', serif;
+            font-size: 28px;
+            color: #ff8b94;
+        }
+
+        .task-input {
+            padding: 12px;
+            border: 1px solid #ff8b94;
+            border-radius: 8px;
+            text-align: center;
+            font-family: 'Cambria', serif;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .task-output {
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .task-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background-color: #fbe3e4;
+            transition: background-color 0.3s ease;
+        }
+
+        .task-item:nth-child(odd) {
+            background-color: #f6e6e9;
+        }
+
+        .task-text {
+            font-family: 'Verdana', sans-serif;
+            font-size: 18px;
+            color: #555;
+        }
+
+        .delete-button {
+            padding: 8px 12px;
+            border: 1px solid #ff8b94;
+            background-color: #ff8b94;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            color: white;
+        }
+
+        .delete-button:hover {
+            background-color: #ff5a5f;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="wrapper">
+        <h2>ToDo List</h2>
+        <div class="content-box">
+            <input type="text" placeholder="Enter your task here..." name="task" id="task-field" class="task-input">
+            <button id="add-task" class="action-button">Add Task</button>
+        </div>
+        <div class="task-output" id="task-output">
+        </div>
+    </div>
+
+    <script>
+        let taskField = document.getElementById('task-field');
+        let addTaskBtn = document.querySelector('#add-task');
+        let taskOutput = document.querySelector('#task-output');
+        
+        addTaskBtn.addEventListener('click', () => {
+            if (taskField.value.trim().length === 0) {
+                alert('Please enter a task!');
+            } else {
+                let taskItem = document.createElement('div');
+                taskItem.classList.add('task-item');
+                
+                let taskText = document.createElement('p');
+                taskText.classList.add('task-text');
+                taskText.innerText = taskField.value;
+                taskItem.appendChild(taskText);
+
+                let deleteBtn = document.createElement('button');
+                deleteBtn.classList.add('delete-button');
+                deleteBtn.innerText = 'Delete';
+                taskItem.appendChild(deleteBtn);
+
+                taskOutput.appendChild(taskItem);
+
+                deleteBtn.addEventListener('click', () => {
+                    taskItem.remove();
+                });
+
+                taskField.value = '';
+            }
+        });
+    </script>
+
+</body>
+</html>
